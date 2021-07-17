@@ -22,7 +22,7 @@ Ek olarak, client-side'de verilerin nasıl getirileceğinden \(fetch edileceğin
 
 Bir sayfadan `getStaticProps` adlı `async` bir fonksiyon `export` ederseniz, Next.js `getStaticProps` tarafından döndürülen öğeleri kullanarak build zamanında bu sayfayı pre-render eder.
 
-```text
+```jsx
 export async function getStaticProps(context) {
     return {
         props: {}, // sayfa component'ine props olarak geçecek veriler
@@ -95,7 +95,7 @@ Buradaki `context` parametresi şu anahtar değerleri içeren bir objedir:
 
 Burada bir CMS'den blog post'ları listesini alan bir `getStaticProps` örneği yaptık. Bu örnek aynı zamanda [Sayfalar başlığı](pages.md)nda da bulunmaktadır.
 
-```text
+```jsx
 // post'lar build sırasında getStaticProps() tarafından doldurulacak
 function Blog({ posts }) {
     return <ul>{posts.map((post) => <li>{post.title}</li>)}</ul>
@@ -138,7 +138,7 @@ Next.js, sitenizi oluşturduktan sonra statik sayfalar oluşturmanıza veya gün
 
 Önceki `getStaticProps` örneğini düşünün, ama `revalidate` property'i aracılığıyla ISR etkinleştirilmiş olsun:
 
-```text
+```jsx
 function Blog({ posts }) {
     return <ul>{ posts.map((post) => <li>{post.title}</li>)}</ul>    
 }
@@ -203,7 +203,7 @@ Next.js kodunuzu ayrı bir klasöre derlediğinden `__dirname`'yi kullanamazsın
 
 Bunun yerine size Next.js'nin çalıştırıldığı dizini veren `process.cwd()`'yi kullanabilirsiniz.
 
-```text
+```jsx
 import { promises as fs } from 'fs'
 import path from 'path'
 
@@ -301,7 +301,7 @@ Bir sayfanın dinamik yolları [\(dokümantasyon\)](https://nextjs.org/docs/rout
 
 Dinamik yollar kullanan bir sayfadan `getStaticPaths` adlı bir `async` fonksiyonu `export` ederseniz Next.js `getStaticPaths` tarafından belirtilen tüm yolları statik olarak pre-render edecektir.
 
-```text
+```jsx
 export async function getStaticPaths() {
     return {
         paths: [
@@ -316,7 +316,7 @@ export async function getStaticPaths() {
 
 `paths` hangi yolların pre-render edileceğini belirler. Örneğin `pages/posts/[id].js` adında dinamik yollar kullanan bir sayfanız olduğunu varsayalım. Bu sayfadan `getStaticPaths`'ı `export` ederseniz ve `paths` için aşağıdakileri döndürürseniz:
 
-```text
+```javascript
 return {
     paths: [
         { params: { id: '1' } },
@@ -344,7 +344,7 @@ Eğer `fallback: false` ise `getStaticPaths` tarafından return edilmeyen tüm y
 
 Aşağıda, `pages/posts/[id].js` ile sayfa başına blog post'larını pre-render eden bir örnek verilmiştir. Blog gönderilerinin listesi bir CMS'den alınıp `getStaticPaths` tarafından return edilmektedir. Ardından, her sayfa için post'ları `getStaticProps` kullanarak CMS'den alır. Bu örnek aynı zamanda [Sayfalar başlığı](pages.md)nda da bulunmaktadır.
 
-```text
+```jsx
 // pages/posts/[id].js
 
 function Post({ post }) {
@@ -402,7 +402,7 @@ Bir safyanın "fallback" halinde:
 
 `isFallback` kullanımıyla ilgili bir örnek:
 
-```text
+```jsx
 // pages/posts/[id].js
 import { useRouter } from 'next/router'
 
@@ -493,7 +493,7 @@ Ayrıca `export async function getStaticPaths() {}` kullanmalısınız. Yani öz
 
 Bir sayfadan `getStaticProps` adlı `async` bir fonksiyon `export` ederseniz, Next.js `getServerSideProps` tarafından döndürülen öğeleri kullanarak her istekte sayfayı pre-render eder.
 
-```text
+```jsx
 export async function getServerSideProps(context) {
     return {
         props: {}, // sayfa component'ine props olarak geçecek veriler
@@ -568,9 +568,9 @@ Buradaki `context` parametresi şu anahtar değerleri içeren bir objedir:
 
 #### Basit Bir Örnek
 
-Burada bir CMS'den blog post'ları listesini alan bir `getServersideProps` örneği yaptık. Bu örnek aynı zamanda [Pages dokümantasyonu]()nda da bulunmaktadır.
+Burada bir CMS'den blog post'ları listesini alan bir `getServersideProps` örneği yaptık. Bu örnek aynı zamanda [Pages dokümantasyonu](pages.md)nda da bulunmaktadır.
 
-```text
+```jsx
 function Page({ data }) {
     // Render data...
 }
@@ -624,7 +624,7 @@ Bu yaklaşım, örneğin, kullanıcı kontrol paneli sayfaları için iyi çalı
 
 Next.js'nin arkasındaki ekip, veri almak için **SWR** adında bir React Hook oluşturdu. İstemci tarafında veri alıyorsanız bunu kesinlikle öneririz. Önbelleğe alma, yeniden doğrulama, focus izleme, aralıklarla yeniden getirme ve daha fazlasını bu hook ile yönetebilirsiniz. Kullanımı şöyledir:
 
-```text
+```jsx
 import useSWR from 'swr'
 
 function Profile() {
