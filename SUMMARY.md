@@ -15,5 +15,5 @@
 
 ---
 
-* [Teşekkürler](tesekkuerler.md)
+* [Teşekkürler](tesekkurler.md)
 
