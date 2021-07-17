@@ -6,7 +6,7 @@ Next.js'de sayfalar `pages` klasöründeki js, jsx, ts veya tsx dosyalarından e
 
 **Örnek:** Eğer aşağıdaki gibi bir React component'i export eden `pages/about.js` dosyası oluşturursanız buna `/about` üzerinden erişebileceksiniz.
 
-```text
+```jsx
 function About() {
     return <div>About</div>
 }
@@ -49,7 +49,7 @@ Next.js'de oluşturduğunuz statik sayfalar data içerebilir veya içermeyebilir
 
 Varsayılan olarak Next.js veriler olmadan Static Generation kullanarak sayfaları pre-render eder. Mesela:
 
-```text
+```jsx
 function About() {
     return About
 }
@@ -67,13 +67,13 @@ Bazı sayfalar pre-render edilmek için harici verilere ihtiyaç duyarlar. Bunun
 
 **Örnek:** Blog sayfanızın bir CMS'den \(içerik yönetim sisteminden\) içerik alması gerekebilir.
 
-```text
+```jsx
 // TODO: Bu sayfa pre-render edilmeden önce `posts` değerinin 
 //       gönderilmesi gerekiyor (bir API endpoint'i tarafından)
 function Blog({ posts }) {
-    return $lt;ul>{
-        posts.map((post) => ( $lt;li>{post.title}$lt;/li> ))
-    }$lt;/ul>
+    return <ul>{
+        posts.map((post) => ( <li>{post.title}</li> ))
+    }</ul>
 }
 
 export default Blog
@@ -81,7 +81,7 @@ export default Blog
 
 Bu verileri pre-render'de getirmek için Next.js, aynı dosyadan `getStaticProps` adlı `async` bir fonksiyonu `export` etmenize olanak verir. Bu fonksiyon build sırasında çağırılır ve alınan verileri pre-rendering sırasında sayfanın `props`'larına iletmenize olanak tanır.
 
-```text
+```jsx
 function Blog({ posts }) {
     // Post'lar render ediliyor...
 }
@@ -120,7 +120,7 @@ Daha sonra `id:2` değerine sahip ikinci post'u da ekleyebilirsiniz. Bu durumda 
 
 Bu örnekte, pre-render edilmiş sayfanızın yolları harici verilere bağlıdır. Bunu halletmek için Next.js, dinamik bir sayfadan `getStaticPaths` adlı bir `async` fonksiyonu `export` etmenize izin verir \(Bu örnekte `pages/posts/[id].js`\). Bu fonksiyon, derleme sırasında çağırılır ve hangi yolları pre-render etmek istediğinizi belirtmenize olanak tanır.
 
-```text
+```jsx
 // Bu fonksiyon derleme anında çağırılacak
 export async function getStaticPaths() {
     // Bir API endpoint'inden harici bir veri alıyoruz.
@@ -140,7 +140,7 @@ export async function getStaticPaths() {
 
 Ayrıca `page/posts/[id].js`'de bu `id`'ye sahip post hakkındaki verileri alabilmeniz ve sayfayı pre-render sırasında oluşturmanız için `getStaticProps`'u dışa aktarmanız gerekir.
 
-```text
+```jsx
     function Post({ post }) {
         // Post'u render ediyoruz...
     }
@@ -195,7 +195,7 @@ Bir sayfayı sunucu taraflı render etmek için `getServerSideProps` adlı bir `
 
 Mesela varsayalım ki sayfanız sık sık harici bir API tarafından güncellenerek pre-render edilmeye ihtiyaç duyuyor. Bu güncellenen verileri sayfanıza aktarmak için aşağıdaki gibi `getServerSideProps` yazabilirsiniz:
 
-```text
+```jsx
 function Page({ data }) {
     // Data render ediliyor...
 }
