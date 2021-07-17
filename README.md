@@ -13,7 +13,7 @@ Next.js'yle ilgili herhangi bir sorunuz olursa [GitHub Tartışmalar](https://gi
 * Node.js 12.0 veya üstü
 * MacOs, Windows ve Linux destekleniyor.
 
-### Kurulum
+## Kurulum
 
 `create-next-app` kullanarak sizin için her şeyi otomatik olarak hazırladığımız kurulumu tercih etmenizi öneririz.
 
@@ -35,7 +35,7 @@ Kurulum tamamlandıktan sonra geliştirici sunucusunda başlatmak için talimatl
 
 `create-next-app` kullanımıyla ilgili daha fazla bilgi için ["create-next-app" dokümantasyonu](https://nextjs.org/docs/api-reference/create-next-app)nu inceleyebilirsiniz.
 
-### Manuel Kurulum
+## Manuel Kurulum
 
 Projenize `nextreactreact-dom` kurun:
 
@@ -75,7 +75,7 @@ Projeniz içinde `pages` klasörü oluşturun.
 function HomePage() {
     return <div>Welcome to Next.js!</div>
 }
-    
+
 export default HomePage
 ```
 

@@ -2,7 +2,7 @@
 
 Next.js, bir JavaScript dosyasından CSS dosyalarını `import` etmenize olanak tanır. Next.js, `import` kavramını JavaScript'in ötesine taşıdığı için bu mümkün olmaktadır.
 
-### Adding a Global Stylesheet \(Global Bir Stylesheet Eklemek\) <a id="basic-features_built-in-css-support_adding-a-global-stylesheet"></a>
+## Adding a Global Stylesheet \(Global Bir Stylesheet Eklemek\) <a id="basic-features_built-in-css-support_adding-a-global-stylesheet"></a>
 
 Uygulamanızda bir stil eklemek için CSS dosyasını `pages/_app.js` dosyasına `import` edin.
 
@@ -34,7 +34,7 @@ Development aşamasında, stil sayfalarını bu şekilde ifade etmek, siz onlar�
 
 Production'dayken tüm CSS dosyaları otomatik olarak tek bir minify edilmiş `.css` dosyasında birleştirilir.
 
-#### Import styles from `node_modules` \(`node_modules`'den stil import etmek\)
+### Import styles from `node_modules` \(`node_modules`'den stil import etmek\)
 
 Next.js, **9.5.4** versiyonundan itibaren `node_modules` içinden uygulamanızın herhangi bir yerine CSS `import` etmenize izin vermektedir.
 
@@ -64,12 +64,12 @@ function ExampleDialog(props) {
     const close = () => setShowDialog(false)
 
     return (
-        
+
     )
 }
 ```
 
-### Adding Component-Level CSS \(Component Seviyesinde CSS Eklemek\) <a id="basic-features_built-in-css-support_adding-component-level-css"></a>
+## Adding Component-Level CSS \(Component Seviyesinde CSS Eklemek\) <a id="basic-features_built-in-css-support_adding-component-level-css"></a>
 
 Next.js, `[name].module.css` dosya adlandırma kuralını kullanan CSS modüllerini destekler.
 
@@ -115,7 +115,7 @@ CSS Modülleri isteğe bağlı bir özelliktir ve sadece `.module.css` uzantıs�
 
 Production aşamasındaysanız tüm CSS Modulü dosyaları otomatik olarak küçültülmüş ve bir `.css` dosyasında birleştirilmiştir. Böylece uygulamanızı stillendirmek için kullanıcının tarayıcısına minimum miktarda CSS gönderilmiş olur.
 
-### Sass Desteği <a id="basic-features_built-in-css-support_sass-support"></a>
+## Sass Desteği <a id="basic-features_built-in-css-support_sass-support"></a>
 
 Next.js hem `.scss` hem de `.sass` uzantılarını kullanarak Sass'ı içe aktarmanıza olanak tanır. Component düzeyinde Sass'ı, `.module.scss` veya `.module.sass` uzantıılarıyla kullanabilirsiniz.
 
@@ -131,7 +131,7 @@ Sass desteği, yukarıda ayrıntıları verilen yerleşik CSS desteğiyle aynı 
 >
 > Hangisini seçeceğinizden emin değilseniz, CSS'nin bir üst kümesi olan ve girintili söz dizimini \("Sass"\) gerektirmeyen `.scss` uzantısıyla başlayın.
 
-#### Customizing Sass Options \(Sass Ayarlarını Özelleştirmek\) <a id="basic-features_built-in-css-support_sass-support_customizing-sass-options"></a>
+### Customizing Sass Options \(Sass Ayarlarını Özelleştirmek\) <a id="basic-features_built-in-css-support_sass-support_customizing-sass-options"></a>
 
 Sass derleyicisini yapılandırmak istiyorsanız, `next.config.js`'de `sassOptions`'u kullanabilirsiniz.
 
@@ -147,7 +147,7 @@ module.exports = {
 }
 ```
 
-### CSS-in-JS <a id="basic-features_built-in-css-support_css-in-js"></a>
+## CSS-in-JS <a id="basic-features_built-in-css-support_css-in-js"></a>
 
 Satır içi stil kullanma örneği:
 
@@ -184,11 +184,11 @@ export default HelloWorld
 
 [`styled-jsx dokümantasyonu`](https://github.com/vercel/styled-jsx)ndan daha fazlasını öğrenebilirsiniz.
 
-#### **JavaScript aktif edilmemişse yine de çalışır mı?**
+### **JavaScript aktif edilmemişse yine de çalışır mı?**
 
 Evet, `next start` ile başlattığınız production aşamasındaysanız JavaScript disable edilmiş olsa bile CSS yüklenecektir. Ama development aşamasında Fast Refresh için JavaScript'in aktif edilmiş olması gerekir.
 
-### İlişkili Konular
+## İlişkili Konular
 
 Buradan sonra aşağıdakilerden biriyle devam etmenizi öneririz:
 

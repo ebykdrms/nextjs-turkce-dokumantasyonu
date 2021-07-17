@@ -12,7 +12,7 @@ Next.js, görselleri build sırasında optimize etmek yerine, request üzerine k
 
 Görseller varsayılan olarak lazy load edilir. Yani henüz ekranda görünmemiş olan bir görselin yüklenmesi beklenmez. Böylece sayfa hızınız düşmez. Görseller, ekran kaydırıldıkça \(görsel alanı ekranda belirdiği zaman\) yüklenir.
 
-Görseller her zaman, Google'nin arama sıralamasında kullanacağı [Core Web Vital](https://web.dev/vitals/) olan  [Cumulative Layout Shift](https://web.dev/cls/)'ten kaçınacak şekilde oluşturulur.
+Görseller her zaman, Google'nin arama sıralamasında kullanacağı [Core Web Vital](https://web.dev/vitals/) olan [Cumulative Layout Shift](https://web.dev/cls/)'ten kaçınacak şekilde oluşturulur.
 
 ## Image Component
 
@@ -66,7 +66,7 @@ function Home() {
 }
 ```
 
- Ama dinamik veya harici kaynaktan gelen  [`width`](https://nextjs.org/docs/api-reference/next/image#width), [`height`](https://nextjs.org/docs/api-reference/next/image#height) ve[`blurDataURL`](https://nextjs.org/docs/api-reference/next/image#blurdataurl) değerlerini manuel olarak girmelisiniz.
+Ama dinamik veya harici kaynaktan gelen [`width`](https://nextjs.org/docs/api-reference/next/image#width), [`height`](https://nextjs.org/docs/api-reference/next/image#height) ve[`blurDataURL`](https://nextjs.org/docs/api-reference/next/image#blurdataurl) değerlerini manuel olarak girmelisiniz.
 
 ## Propertiy'ler
 
@@ -83,7 +83,7 @@ Harici bir URL kullanırken bunu `next.config.js`'deki [domains](https://nextjs.
 
 #### width
 
-Görselin piksel cinsinden genişliği. Herhangi bir birim adı belirtmeden direkt integer bir sayı verilmelidir. 
+Görselin piksel cinsinden genişliği. Herhangi bir birim adı belirtmeden direkt integer bir sayı verilmelidir.
 
 Statik olarak `import` edilmediyse veya `layout="fill"` değilse zorunlu bir prop'tur.
 
@@ -330,6 +330,4 @@ module.exports = {
   },
 }
 ```
-
-
 

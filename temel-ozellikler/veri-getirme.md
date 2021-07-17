@@ -6,13 +6,13 @@
 
 Pre-render için veri almakta kullanabileceğiniz üç benzersiz Next.js fonksiyonundan bahsedeceğiz:
 
-* [`getStaticProps`]() \(Static Generation\): Veri build yapılırken getirilir.
-* [`getStaticPaths`]() \(Static Generation\): Verilere dayalı olarak sayfaları pre-render etmek üzere özel dinamik yollar \([dynamic routes](https://nextjs.org/docs/routing/dynamic-routes)\) belirtilir.
-* [`getServerSideProps`]() \(Server-side Rendering\): Veri **her request'te** yenilenir.
+* [`getStaticProps`](veri-getirme.md) \(Static Generation\): Veri build yapılırken getirilir.
+* [`getStaticPaths`](veri-getirme.md) \(Static Generation\): Verilere dayalı olarak sayfaları pre-render etmek üzere özel dinamik yollar \([dynamic routes](https://nextjs.org/docs/routing/dynamic-routes)\) belirtilir.
+* [`getServerSideProps`](veri-getirme.md) \(Server-side Rendering\): Veri **her request'te** yenilenir.
 
 Ek olarak, client-side'de verilerin nasıl getirileceğinden \(fetch edileceğinden\) kısaca bahsedeceğiz.
 
-### `getStaticProps` \(Static Generation\) <a id="basic-features_data-fetching_getstaticprops-static-generation"></a>
+## `getStaticProps` \(Static Generation\) <a id="basic-features_data-fetching_getstaticprops-static-generation"></a>
 
 > Versiyon Geçmişi
 >
@@ -43,39 +43,39 @@ Buradaki `context` parametresi şu anahtar değerleri içeren bir objedir:
 
 * `props` - Sayfa component'i tarafından alınacak değerlere sahip, **isteğe bağlı** bir nesnedir. Bu nesne [serializable](https://en.wikipedia.org/wiki/Serialization) olmalıdır.
 * `revalidate` - Sayfanın yeniden oluşturulabilmesi için saniye cinsinden **isteğe bağlı** bir miktar \(varsayılan olarak `false` veya yeniden doğrulama yok\). Daha fazlası için: [Incremental Static Regeneration](veri-getirme.md#basic-features_data-fetching_incremental-static-regeneration)
-*  `notFound` - Sayfanın 404 durumu ve sayfası döndürmesine izin vermek için **isteğe bağlı** bir `boolean` değerdir. Aşağıda nasıl çalıştığına dair bir örnek verilmiştir:
+* `notFound` - Sayfanın 404 durumu ve sayfası döndürmesine izin vermek için **isteğe bağlı** bir `boolean` değerdir. Aşağıda nasıl çalıştığına dair bir örnek verilmiştir:
 
   ```text
   export async function getStaticProps(context) {
-      const res = await fetch(`https://.../data`)
-      const data = await res.json()
-    
-      if (!data) { return { notFound: true, } }
-    
-      return { props: { data }, } // sayfa component'ine prop olarak geçilecek veri
+     const res = await fetch(`https://.../data`)
+     const data = await res.json()
+
+     if (!data) { return { notFound: true, } }
+
+     return { props: { data }, } // sayfa component'ine prop olarak geçilecek veri
   }
   ```
 
   > **Not:** Bu örnekte `notFound`'un `fallback: false`'ye ihtiyacı yoktur çünkü sadece `getStaticPaths`'ten dönen yollar pre-render edilecektir çünkü diğerlerinin pre-render edilmesinin yolu `if` bloğunda engellenmiştir.
-
+  >
   > **Not:** `notFound: true` ile, sayfa başarıyla oluşturulmuş olsa bile 404 döndürecektir. Bu, kullanıcı tarafından oluşturulan oluşturulan içeriğin yazar tarafından kaldırılması gibi kullanımları desteklemek içindir.
 
-*  `redirect` - Dahili veya harici kaynaklara yönlendirmeye izin vermek için **isteğe bağlı** `{ destination: string, permanent: boolean }` biçiminde bir değerdir. Bazı ender durumlarda, eski HTTP istemcilerinin doğru şekilde yeniden yönlendirme yapması için özel bir durum kodu atamanız gerekebilir. Bu durumlarda `permanent` property'i yerine `statusCode` property'i özelliğini kullanabilirsiniz \(ama ikisini aynı anda kullanamazsınız\). Aşağıda nasıl çalıştığına dair bir örnek verilmiştir:
+* `redirect` - Dahili veya harici kaynaklara yönlendirmeye izin vermek için **isteğe bağlı** `{ destination: string, permanent: boolean }` biçiminde bir değerdir. Bazı ender durumlarda, eski HTTP istemcilerinin doğru şekilde yeniden yönlendirme yapması için özel bir durum kodu atamanız gerekebilir. Bu durumlarda `permanent` property'i yerine `statusCode` property'i özelliğini kullanabilirsiniz \(ama ikisini aynı anda kullanamazsınız\). Aşağıda nasıl çalıştığına dair bir örnek verilmiştir:
 
   ```text
   export async function getStaticProps(context) {
-      const res = await fetch(`https://...`)
-      const data = await res.json()
-    
-      if (!data) {
-          return {
-              redirect: { destination: '/', permanent: false, },
-          }
-      }
-    
-      return {
-          props: { data }, // sayfa component'ine props olarak gidecek data
-      }
+     const res = await fetch(`https://...`)
+     const data = await res.json()
+
+     if (!data) {
+         return {
+             redirect: { destination: '/', permanent: false, },
+         }
+     }
+
+     return {
+         props: { data }, // sayfa component'ine props olarak gidecek data
+     }
   }
   ```
 
@@ -86,12 +86,12 @@ Buradaki `context` parametresi şu anahtar değerleri içeren bir objedir:
 > Yani, sunucu taraflı kodu doğrudan `getStaticProps`'ta kullanabilirsiniz. Mesela dosya sisteminizden veya veritabanından okuma gibi işlemleri burada yapabilirsiniz.
 >
 > `getStaticProps`'ta kullanılan `import`'lar client-side için bundle edilmeyecektir \(paketlenmeyecektir\).
-
+>
 > **Not:** `getStaticProps` içinde bir API yoluna erişmek için `fetch()` kullanmamalısınız. Bunun yerine API rotanızda kullandığınız mantığı doğrudan `import` edin. Bu yaklaşım için kodunuzu biraz yeniden düzenlemeniz gerekebilir.
 >
 > Harici bir API'den veri almak sorun değil!
 
-#### Basit Bir Örnek
+### Basit Bir Örnek
 
 Burada bir CMS'den blog post'ları listesini alan bir `getStaticProps` örneği yaptık. Bu örnek aynı zamanda [Sayfalar başlığı](pages.md)nda da bulunmaktadır.
 
@@ -119,7 +119,7 @@ export async function getStaticProps() {
 export default Blog
 ```
 
-#### Ne zaman `getStaticProps` Kullanmalıyız?
+### Ne zaman `getStaticProps` Kullanmalıyız?
 
 Eğer şunları yapacaksanız `getStaticProps` kullanmalısınız:
 
@@ -128,7 +128,7 @@ Eğer şunları yapacaksanız `getStaticProps` kullanmalısınız:
 * Veriler herkese açık olarak önbelleğe alınabilirse \(kullanıcıya özel değilse\),
 * Sayfa SEO için önceden oluşturulmalıysa ve çok hızlı olmalıysa.
 
-#### Incremental Static Regeneration \(ISR\) \(Artımlı Statik Yenileme\) <a id="basic-features_data-fetching_incremental-static-regeneration"></a>
+### Incremental Static Regeneration \(ISR\) \(Artımlı Statik Yenileme\) <a id="basic-features_data-fetching_incremental-static-regeneration"></a>
 
 > Versiyon Geçmişi
 >
@@ -142,14 +142,14 @@ Next.js, sitenizi oluşturduktan sonra statik sayfalar oluşturmanıza veya gün
 function Blog({ posts }) {
     return <ul>{ posts.map((post) => <li>{post.title}</li>)}</ul>    
 }
-    
+
 // Bu fonksiyon build sırasında server-side tarafında çağırılacak.
 // Ama eğer revalidation etkinleştirildiyse ve yeni bir istek gelirse
 // sunucusuz (serverless) bir fonksiyonda tekrar çağırılabilir.
 export async function getStaticProps() {
     const res = await fetch('https://.../posts')
     const posts = await res.json()
-    
+
     return {
         props: {
             posts,
@@ -160,25 +160,25 @@ export async function getStaticProps() {
         revalidate: 10, // saniye cinsinden
     }
 }
-    
+
 // Bu fonksiyon, build sırasında server-side tarafında çağırılır.
 // Ama eğer path oluşturulmamışsa serverless bir fonksiyonda 
 // tekrar çağırılabilir.
 export async function getStaticPaths() {
     const res = await fetch('https://.../posts')
     const posts = await res.json()
-    
+
     // Post'lara göre pre-render edilecek yolları alıyoruz.
     const paths = posts.map((post) => ({
         params: { id: post.id },
     }))
-    
+
     // Build sırasında sadece bu yolları pre-render edeceğiz.
     // Eğer path bulunamazsa { fallback: blocking } ile sunucu 
     // ilk request'le birlikte sayfayı oluşturacak.
     return { paths, fallback: 'blocking' }
 }
-    
+
 export default Blog
 ```
 
@@ -193,7 +193,7 @@ Oluşturulmamış bir yola istek yapıldığında Next.js, ilk istekte sayfayı 
 
 Önbelleğin global olarak nasıl kalıcı hale getirileceğini ve geri almaların nasıl yönetileceğini öğrenmek için [ISR](https://vercel.com/docs/next.js/incremental-static-regeneration) hakkında daha fazla bilgi edinin.
 
-#### Reading files: Use `process.cwd()`
+### Reading files: Use `process.cwd()`
 
 Dosyalar doğrudan `getStaticProps` içindeki dosya sisteminden okunabilir.
 
@@ -252,7 +252,7 @@ export async function getStaticProps() {
 export default Blog
 ```
 
-#### Teknik Detaylar <a id="basic-features_data-fetching_technical-details"></a>
+### Teknik Detaylar <a id="basic-features_data-fetching_technical-details"></a>
 
 **Sadece build sırasında çalışır**
 
@@ -290,7 +290,7 @@ Bazı durumlarda, Staic Generation'u geçici olarak atlamak ve sayfayı build s�
 
 Bu kullanım durumu Next.js tarafından **Preview Mode** adı verilen özellik olarak desteklenir. Önizleme modu hakkında daha fazla bilgi için [Preview Mode dokümantasyonu](https://nextjs.org/docs/advanced-features/preview-mode)nu inceleyin.
 
-### `getStaticPaths` \(Static Generation\) <a id="basic-features_data-fetching_getstaticpaths-static-generation"></a>
+## `getStaticPaths` \(Static Generation\) <a id="basic-features_data-fetching_getstaticpaths-static-generation"></a>
 
 > Versiyon Geçmişi
 >
@@ -312,7 +312,7 @@ export async function getStaticPaths() {
 }
 ```
 
-#### `paths` key \(zorunlu\) <a id="basic-features_data-fetching_the-paths-key-required"></a>
+### `paths` key \(zorunlu\) <a id="basic-features_data-fetching_the-paths-key-required"></a>
 
 `paths` hangi yolların pre-render edileceğini belirler. Örneğin `pages/posts/[id].js` adında dinamik yollar kullanan bir sayfanız olduğunu varsayalım. Bu sayfadan `getStaticPaths`'ı `export` ederseniz ve `paths` için aşağıdakileri döndürürseniz:
 
@@ -334,7 +334,7 @@ Next.js `paths/1` ve `paths/2` için statik sayfalar üretir.
 * Eğer sayfa adı örneğin `pages/[...slug]` gibi tüm yolları yakalamaya çalışıyorsa `params` değeri `slug` key'ini dizi olarak içermelidir. Örneğin bu dizi `['foo','bar']` ise Next.js `/foo/bar` yolu için statik sayfa üretecektir.
 * Eğer sayfa isteğe bağlı olarak tüm yolları yakalama yapmaya çalışıyorsa en kök yolu sağlamak için `null`, `[]`, `undefined` veya `false` değerini sağlayın. Örneğin `pages/[[...slug]]` için `slug: false` derseniz Next.js `/` yolu için statik sayfa üretecektir.
 
-#### `fallback` key \(zorunlu\) <a id="basic-features_data-fetching_the-fallback-key-required"></a>
+### `fallback` key \(zorunlu\) <a id="basic-features_data-fetching_the-fallback-key-required"></a>
 
 `getStaticPaths` fonksiyonu boolean türünden `fallback` key'i içeren bir obje return etmelidir. \(ing:fallback, tr:yedek\)
 
@@ -456,7 +456,7 @@ Tüm ürün sayfalarını pre-render etmek istiyorsunuz ama bu sayfaların gelec
 
 Bu hem kullanıcıların hız deneyimini kesintiye uğratmamış olur hem de static generation'un faydalarını kullanmış oluruz.
 
-`fallback: true`, zaten oluşturulmuş olan sayfaları güncellemez. Bununla ilgili [Incremental Static Regeneration]() konusunu inceleyin.
+`fallback: true`, zaten oluşturulmuş olan sayfaları güncellemez. Bununla ilgili [Incremental Static Regeneration](veri-getirme.md) konusunu inceleyin.
 
 **fallback: 'blocking'**
 
@@ -466,7 +466,7 @@ Kısaca, `fallback: true` gibi çalışır. Fark şu ki; henüz oluşturulmamı�
 
 > `next export` kullanırsanız `fallback: 'blocking'` desteklemez.
 
-#### Teknik detaylar
+### Teknik detaylar
 
 **getStaticProps ile birlikte kullanın**
 
@@ -484,7 +484,7 @@ Dinamik rota parametreleri olan bir sayfda `getStaticProps` kullandığınızda 
 
 Ayrıca `export async function getStaticPaths() {}` kullanmalısınız. Yani özellikle sayfa bileşeninden bağımsız bir fonksiyon olarak export etmelisiniz. Sayfanın bir property'i olarak \(propTypes'ı ekler gibi\) oluşturmaya çalışırsanız çalışmaz.
 
-### `getServerSideProps` \(Server-side Rendering\) <a id="basic-features_data-fetching_getserversideprops-server-side-rendering"></a>
+## `getServerSideProps` \(Server-side Rendering\) <a id="basic-features_data-fetching_getserversideprops-server-side-rendering"></a>
 
 > Versiyon Geçmişi
 >
@@ -517,40 +517,40 @@ Buradaki `context` parametresi şu anahtar değerleri içeren bir objedir:
 `getServerSideProps` şu değerleri içeren bir obje return etmelidir:
 
 * `props` - Sayfa component'i tarafından alınacak değerlere sahip, **isteğe bağlı** bir nesnedir. Bu nesne [serializable](https://en.wikipedia.org/wiki/Serialization) olmalıdır.
-* `revalidate` - Sayfanın yeniden oluşturulabilmesi için saniye cinsinden **isteğe bağlı** bir miktar \(varsayılan olarak `false` veya yeniden doğrulama yok\). Daha fazlası için: [Incremental Static Regeneration]()
-*  `notFound` - Sayfanın 404 durumu ve sayfası döndürmesine izin vermek için **isteğe bağlı** bir `boolean` değerdir. Aşağıda nasıl çalıştığına dair bir örnek verilmiştir:
+* `revalidate` - Sayfanın yeniden oluşturulabilmesi için saniye cinsinden **isteğe bağlı** bir miktar \(varsayılan olarak `false` veya yeniden doğrulama yok\). Daha fazlası için: [Incremental Static Regeneration](veri-getirme.md)
+* `notFound` - Sayfanın 404 durumu ve sayfası döndürmesine izin vermek için **isteğe bağlı** bir `boolean` değerdir. Aşağıda nasıl çalıştığına dair bir örnek verilmiştir:
 
   ```text
   export async function getServerSideProps(context) {
-      const res = await fetch(`https://.../data`)
-      const data = await res.json()
-    
-      if (!data) { return { notFound: true, } }
-    
-      return { props: { data }, } // sayfa component'ine prop olarak geçilecek veri
+     const res = await fetch(`https://.../data`)
+     const data = await res.json()
+
+     if (!data) { return { notFound: true, } }
+
+     return { props: { data }, } // sayfa component'ine prop olarak geçilecek veri
   }
   ```
 
   > **Not:** Bu örnekte `notFound`'un `fallback: false`'ye ihtiyacı yoktur çünkü sadece `getStaticPaths`'ten dönen yollar pre-render edilecektir çünkü diğerlerinin pre-render edilmesinin yolu `if` bloğunda engellenmiştir.
-
+  >
   > **Not:** `notFound: true` ile, sayfa başarıyla oluşturulmuş olsa bile 404 döndürecektir. Bu, kullanıcı tarafından oluşturulan oluşturulan içeriğin yazar tarafından kaldırılması gibi kullanımları desteklemek içindir.
 
-*  `redirect` - Dahili veya harici kaynaklara yönlendirmeye izin vermek için **isteğe bağlı** `{ destination: string, permanent: boolean }` biçiminde bir değerdir. Bazı ender durumlarda, eski HTTP istemcilerinin doğru şekilde yeniden yönlendirme yapması için özel bir durum kodu atamanız gerekebilir. Bu durumlarda `permanent` property'i yerine `statusCode` property'i özelliğini kullanabilirsiniz \(ama ikisini aynı anda kullanamazsınız\). Aşağıda nasıl çalıştığına dair bir örnek verilmiştir:
+* `redirect` - Dahili veya harici kaynaklara yönlendirmeye izin vermek için **isteğe bağlı** `{ destination: string, permanent: boolean }` biçiminde bir değerdir. Bazı ender durumlarda, eski HTTP istemcilerinin doğru şekilde yeniden yönlendirme yapması için özel bir durum kodu atamanız gerekebilir. Bu durumlarda `permanent` property'i yerine `statusCode` property'i özelliğini kullanabilirsiniz \(ama ikisini aynı anda kullanamazsınız\). Aşağıda nasıl çalıştığına dair bir örnek verilmiştir:
 
   ```text
   export async function getServerSideProps(context) {
-      const res = await fetch(`https://...`)
-      const data = await res.json()
-    
-      if (!data) {
-          return {
-              redirect: { destination: '/', permanent: false, },
-          }
-      }
-    
-      return {
-          props: { data }, // sayfa component'ine props olarak gidecek data
-      }
+     const res = await fetch(`https://...`)
+     const data = await res.json()
+
+     if (!data) {
+         return {
+             redirect: { destination: '/', permanent: false, },
+         }
+     }
+
+     return {
+         props: { data }, // sayfa component'ine props olarak gidecek data
+     }
   }
   ```
 
@@ -561,12 +561,12 @@ Buradaki `context` parametresi şu anahtar değerleri içeren bir objedir:
 > Yani, sunucu taraflı kodu doğrudan `getStaticProps`'ta kullanabilirsiniz. Mesela dosya sisteminizden veya veritabanından okuma gibi işlemleri burada yapabilirsiniz.
 >
 > `getStaticProps`'ta kullanılan `import`'lar client-side için bundle edilmeyecektir \(paketlenmeyecektir\).
-
+>
 > **Not:** `getStaticProps` içinde bir API yoluna erişmek için `fetch()` kullanmamalısınız. Bunun yerine API rotanızda kullandığınız mantığı doğrudan `import` edin. Bu yaklaşım için kodunuzu biraz yeniden düzenlemeniz gerekebilir.
 >
 > Harici bir API'den veri almak sorun değil!
 
-#### Basit Bir Örnek
+### Basit Bir Örnek
 
 Burada bir CMS'den blog post'ları listesini alan bir `getServersideProps` örneği yaptık. Bu örnek aynı zamanda [Pages dokümantasyonu](pages.md)nda da bulunmaktadır.
 
@@ -574,27 +574,27 @@ Burada bir CMS'den blog post'ları listesini alan bir `getServersideProps` örne
 function Page({ data }) {
     // Render data...
 }
-    
+
 // Her istekte çalışacak
 export async function getServerSideProps() {
     // Harici bir API endpoint'inden veri çekiyoruz
     const res = await fetch(`https://.../data`)
     const data = await res.json()
-    
+
     // Sayfaya props yoluyla veriyi aktarıyoruz.
     return { props: { data } }
 }
-    
+
 export default Page
 ```
 
-#### Ne zaman `getServerSideProps` Kullanmalıyız?
+### Ne zaman `getServerSideProps` Kullanmalıyız?
 
 `getServerSideProps`'u yalnızca verileri istek yapıldığı zaman alınması gereken bir sayfayı pre-render etmeniz gerekiyorsa kullanmalısınız. İlk byte'ye kadar geçen süre \(TTFB\), sunucunun her istekte sonucu hesaplaması gerektiğinden ve sonuç extra yapılandırma olmadan bir CDN tarafından önbelleğe alınamayacağı için `getStaticProps`'tan daha yavaş olacaktır.
 
-Eğer verileri önceden oluşturmanız gerekmiyorsa, verileri istemci tarafında getirmeyi düşünmelisiniz. Daha fazla bilgi için [buraya tıklayın]().
+Eğer verileri önceden oluşturmanız gerekmiyorsa, verileri istemci tarafında getirmeyi düşünmelisiniz. Daha fazla bilgi için [buraya tıklayın](veri-getirme.md).
 
-#### Teknik Detaylar
+### Teknik Detaylar
 
 **Sadece server-side çalışır**
 
@@ -611,7 +611,7 @@ Hangi kodun istemci tarafında gönderildiğini test etmek için [bu aracı](htt
 
 Sayfa component'inin bir property'i gibi oluşturamazsınız. Sayfa component'inden bağımsız şekilde sayfa dosyasından export edilmelidir \(`export async function getServerSideProps() {}`\).
 
-### Fetching data on the client-side \(İstemci tarafında data almak\)
+## Fetching data on the client-side \(İstemci tarafında data almak\)
 
 Sayfanız sık sık güncellenen veriler içeriyorsa ve verileri önceden oluşturmanız gerekmiyorsa, verileri istemci tarafında getirebilirsiniz. Bunun örneği, kullanıcıya özel verilerdir. Şu şekilde çalışır:
 
@@ -620,7 +620,7 @@ Sayfanız sık sık güncellenen veriler içeriyorsa ve verileri önceden oluşt
 
 Bu yaklaşım, örneğin, kullanıcı kontrol paneli sayfaları için iyi çalışır. Çünkü mesela dashboard kullanıcıya özel bir sayfa olduğundan SEO'yla ilgisi yoktur ve sayfanın önceden oluşturulmasına gerek yoktur. Veriler sık sık güncellenir. Bu da her istekte verinin alınmasını gerektirir.
 
-#### SWR <a id="basic-features_data-fetching_swr"></a>
+### SWR <a id="basic-features_data-fetching_swr"></a>
 
 Next.js'nin arkasındaki ekip, veri almak için **SWR** adında bir React Hook oluşturdu. İstemci tarafında veri alıyorsanız bunu kesinlikle öneririz. Önbelleğe alma, yeniden doğrulama, focus izleme, aralıklarla yeniden getirme ve daha fazlasını bu hook ile yönetebilirsiniz. Kullanımı şöyledir:
 
@@ -638,7 +638,7 @@ function Profile() {
 
 [SWR dokümantasyonunu inceleyip daha fazlasını öğrenebilirsiniz.](https://swr.vercel.app/)
 
-### Daha Fazlasını Öğrenin
+## Daha Fazlasını Öğrenin
 
 Buradan sonra aşağıdakilerden biriyle devam etmenizi öneririz:
 
