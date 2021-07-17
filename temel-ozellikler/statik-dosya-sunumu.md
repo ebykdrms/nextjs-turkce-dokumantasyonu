@@ -4,7 +4,7 @@ Next.js, kök dizinde bulunan`public` dizininin altında, görseller gibi statik
 
 Örneğin, `public/me.png` görseline aşağıdaki şekilde erişebilirsiniz:
 
-```text
+```jsx
 import Image from 'next/image'
 
 function Avatar() {

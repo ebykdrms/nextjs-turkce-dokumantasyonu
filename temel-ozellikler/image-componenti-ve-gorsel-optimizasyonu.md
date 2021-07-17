@@ -18,7 +18,7 @@ Görseller her zaman, Google'nin arama sıralamasında kullanacağı [Core Web V
 
 Uygulamanıza bir görsel eklemek için `next/image` component'ini `import` edin:
 
-```text
+```jsx
 import Image from 'next/image'
 
 function Home() {
@@ -45,7 +45,7 @@ Projenizde bulunan görselleri `import` edebilirsiniz. \(`require` desteklenmez.
 
 Direkt `import` ettiğinizde Image component'ine `width`, `height` ve `blurDataUrl` otomatik olarak sağlanacaktır. Ama `alt` property'ine halen ihtiyacı vardır.
 
-```text
+```jsx
 import Image from 'next/image'
 import profilePic from '../public/me.png'
 
@@ -125,7 +125,7 @@ URL'leri çözmek için kullanılan özel bir fonksiyon. `next.config.js` dosyas
 * [`width`](image-componenti-ve-gorsel-optimizasyonu.md#width)
 * [`quality`](image-componenti-ve-gorsel-optimizasyonu.md#height)
 
-```text
+```jsx
 import Image from 'next/image'
 
 const myLoader = ({ src, width, quality }) => {
@@ -238,7 +238,7 @@ Görselinizle eşleşmesi için [düz renkli bir veri URL'si de oluşturabilirsi
 
 Harici bir web sitesinde barındırılan görsellerde görsel optimizasyonunu etkinleştirmek için görsel `src`'sinde mutlak bir url kullanın ve hangi domainlerin optimize edilmesine izin verildiğini belirtin. Bu, harici URL'lerin kötüye kullanılmamasını sağlamak için gereklidir. `loader` harici bir görüntü hizmetine ayarlandığında bu seçenek yok sayılır.
 
-```text
+```jsx
 module.exports = {
   images: {
     domains: ['example.com'],
@@ -250,7 +250,7 @@ module.exports = {
 
 Görselleri optimize etmek için Next.js'nin yerleşik görüntü optimizasyonunu kullanmak yerine bir bulut sağlayıcısı kullanmak istiyorsanız yükleyici ve yol önekini yapılandırabilirsiniz. Bu, görsel `src`'sindeki url'leri kullanmanıza ve sağlayıcınız için otomatik olarak doğru mutlak url'yi oluşturmanıza olanak tanır.
 
-```text
+```jsx
 module.exports = {
   images: {
     loader: 'imgix',
@@ -293,7 +293,7 @@ Web sitenizin kullanıcılardan beklenen cihaz genişliklerini bildiğiniz bazı
 
 Herhangi bir yapılandırma sağlanmazsa aşağıdaki varsayılan kullanılır:
 
-```text
+```jsx
 module.exports = {
   images: {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -307,7 +307,7 @@ module.exports = {
 
 Herhangi bir yapılandırma sağlanmazsa aşağıdaki varsayılan kullanılır:
 
-```text
+```jsx
 module.exports = {
   images: {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -323,7 +323,7 @@ Bazı durumlarda import'un farklı davranmasını bekleyen diğer eklentilerle �
 
 Aşağıdaki yapılandırma ile statik görsel import'larını devre dışı bırakabilirsiniz:
 
-```text
+```jsx
 module.exports = {
   images: {
     disableStaticImages: true,

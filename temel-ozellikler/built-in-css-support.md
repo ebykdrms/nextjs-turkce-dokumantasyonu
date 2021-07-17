@@ -8,7 +8,7 @@ Uygulamanızda bir stil eklemek için CSS dosyasını `pages/_app.js` dosyasına
 
 Örneğin, `styles.css` adında şu içeriğe sahip bir stil dosyanız olsun:
 
-```text
+```css
 body {
     font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     padding: 20px 20px 60px;
@@ -19,7 +19,7 @@ body {
 
 Sonra da eğer yoksa `pages/_app.js` dosyası oluşturun ve içine `styles.css` dosyanızı `import` edin.
 
-```text
+```jsx
 import '../styles.css'
 
 // Bu export işlemi 'pages/_app.js'de zorunludur.
@@ -40,7 +40,7 @@ Next.js, **9.5.4** versiyonundan itibaren `node_modules` içinden uygulamanızı
 
 Bootstrap veya nprogress gibi global stil sayfaları için dosyayı `pages/_app.js` içine aktarmalısınız. Örneğin:
 
-```text
+```jsx
 // pages/_app.js
 import 'bootstrap/dist/css/bootstrap.css'
 
@@ -51,7 +51,7 @@ export default function MyApp({ Component, pageProps }) {
 
 Third party bir component'in gerektirdiği CSS'yi code.in{import} etmek istediğinizde bunu component'iniz içinde de yapabilirsiniz. Örneğin:
 
-```text
+```jsx
 // components/ExampleDialog.js
 import { useState } from 'react'
 import { Dialog } from '@reach/dialog'
@@ -81,7 +81,7 @@ CSS modülü, uygulmanızın herhangi bir yerinde code.in{import} edilebilir.
 
 Öncelikle `components/Button.module.css` dosyası oluşturup içine şunları yazın:
 
-```text
+```css
 /*
 .error class'ının başka bir .css veya .module.css dosyasındaki
 aynı isimli class'larla çakışmasından endişe etmenize gerek yok.
@@ -94,7 +94,7 @@ aynı isimli class'larla çakışmasından endişe etmenize gerek yok.
 
 Ardından, yukarıdaki CSS dosyasını içe aktarıp kullanarak `components/Button.js` oluşturun:
 
-```text
+```jsx
 import styles from './Button.module.css'
 
 export function Button() {
@@ -121,7 +121,7 @@ Next.js hem `.scss` hem de `.sass` uzantılarını kullanarak Sass'ı içe aktar
 
 Next.js'nin yerleşik Sass desteğini kullanmadan önce `sass`'ı kurduğunuzdan emin olun:
 
-```text
+```bash
 npm install sass
 ```
 
@@ -137,7 +137,7 @@ Sass derleyicisini yapılandırmak istiyorsanız, `next.config.js`'de `sassOptio
 
 Örneğin `includePaths` eklemek için:
 
-```text
+```jsx
 const path = require('path')
 
 module.exports = {
@@ -151,7 +151,7 @@ module.exports = {
 
 Satır içi stil kullanma örneği:
 
-```text
+```jsx
 function HiThere() {
     return <p style={{ color: 'red' }}>hi there</p>
 }
@@ -161,7 +161,7 @@ export default HiThere
 
 `styled-jsx` örneği:
 
-```text
+```jsx
 function HelloWorld() {
     return (
         <div>Hello world<p>scoped!</p>

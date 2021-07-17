@@ -4,7 +4,7 @@ Next.js, **10.2** versiyonundan bu yana yerleşik olarak web font optimizasyonun
 
 Varsayılan olarak Next.js fontları getirmek için fazladan gidip dönüş yapmadan build sırasında otomatik olarak CSS fontunu satır içi olarak kullanır. Bu, [First Contentful Paint \(FCP\)](https://web.dev/fcp/) ve [Largest Contentful Paint'te \(LCP\) ](https://vercel.com/blog/core-web-vitals#largest-contentful-paint)iyileştirme sağlar. Örneğin:
 
-```text
+```markup
 // Önce
 <link
   href="https://fonts.googleapis.com/css2?family=Inter"
@@ -21,7 +21,7 @@ Varsayılan olarak Next.js fontları getirmek için fazladan gidip dönüş yapm
 
 Next.js uygulamanıza bir web font eklemek için `next/head`'ı override edin. Örneğin belirli bir sayfaya font ekleyebilirsiniz:
 
-```text
+```jsx
 // pages/index.js
 
 import Head from 'next/head'
@@ -43,7 +43,7 @@ export default function IndexPage() {
 
 Veya şöyle bir yöntem de izleyebilirsiniz:
 
-```text
+```jsx
 // pages/_document.js
 
 import Document, { Html, Head, Main, NextScript } from 'next/document'
@@ -76,7 +76,7 @@ Otomatik web font optimizasyonu şu anda Google font'larını ve Typekit'i deste
 
 Next.js'nin font'ları optimize etmesini istemiyorsanız devre dışı bırakabilirsiniz.
 
-```text
+```jsx
 // next.config.js
 
 module.exports = {
