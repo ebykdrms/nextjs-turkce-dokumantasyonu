@@ -49,7 +49,7 @@ export default function MyApp({ Component, pageProps }) {
 }
 ```
 
-Third party bir component'in gerektirdiği CSS'yi code.in{import} etmek istediğinizde bunu component'iniz içinde de yapabilirsiniz. Örneğin:
+Third party bir component'in gerektirdiği CSS'yi `import` etmek istediğinizde bunu component'iniz içinde de yapabilirsiniz. Örneğin:
 
 ```jsx
 // components/ExampleDialog.js
@@ -75,9 +75,9 @@ Next.js, `[name].module.css` dosya adlandırma kuralını kullanan CSS modüller
 
 CSS modülleri, otomatik olarak benzersiz bir class adı oluşturarak CSS'yi yerel olarak kapsar. Bu, aynı CSS sınıf adını, çakışmalardan endişe etmeden farklı dosyalarda kullanmanıza olanak tanır.
 
-CSS modülü, uygulmanızın herhangi bir yerinde code.in{import} edilebilir.
+CSS modülü, uygulmanızın herhangi bir yerinde `import` edilebilir.
 
-Örneğin, code.in{components/} klasöründe `Button` adlı bir component olduğunu düşünün:
+Örneğin, `components/` klasöründe `Button` adlı bir component olduğunu düşünün:
 
 Öncelikle `components/Button.module.css` dosyası oluşturup içine şunları yazın:
 
@@ -111,13 +111,13 @@ export function Button() {
 }
 ```
 
-CSS Modülleri isteğe bağlı bir özelliktir ve sadece `.module.css` uzantısına sahip dosyalar için etkinleştirilir. Yani normal `&tl;link ... />` stil sayfaları ve global CSS dosyaları halen desteklenmektedir.
+CSS Modülleri isteğe bağlı bir özelliktir ve sadece `.module.css` uzantısına sahip dosyalar için etkinleştirilir. Yani normal `<link ... />` stil sayfaları ve global CSS dosyaları halen desteklenmektedir.
 
 Production aşamasındaysanız tüm CSS Modulü dosyaları otomatik olarak küçültülmüş ve bir `.css` dosyasında birleştirilmiştir. Böylece uygulamanızı stillendirmek için kullanıcının tarayıcısına minimum miktarda CSS gönderilmiş olur.
 
 ### Sass Desteği <a id="basic-features_built-in-css-support_sass-support"></a>
 
-Next.js hem `.scss` hem de `.sass` uzantılarını kullanarak Sass'ı içe aktarmanıza olanak tanır. Component düzeyinde Sass'ı, `.module.scss` veya `.module.sass` uzantıılarıyla kullanabilirsiniz.
+Next.js hem `.scss` hem de `.sass` uzantılarını kullanarak Sass'ı içe aktarmanıza olanak tanır. Component düzeyinde Sass'ı, `.module.scss` veya `.module.sass` uzantılarıyla kullanabilirsiniz.
 
 Next.js'nin yerleşik Sass desteğini kullanmadan önce `sass`'ı kurduğunuzdan emin olun:
 
@@ -125,7 +125,7 @@ Next.js'nin yerleşik Sass desteğini kullanmadan önce `sass`'ı kurduğunuzdan
 npm install sass
 ```
 
-Sass desteği, yukarıda ayrıntıları verilen yerleşik CSS desteğiyle aynı avantaşlara ve kısıtlamalara sahiptir:
+Sass desteği, yukarıda ayrıntıları verilen yerleşik CSS desteğiyle aynı avantajlara ve kısıtlamalara sahiptir:
 
 > **Not:** Sass, her biri kendi uzantısına sahip [iki farklı syntax](https://sass-lang.com/documentation/syntax)'ı destekler. `scss` uzantısında [SCSS syntax](https://sass-lang.com/documentation/syntax#scss)'ını kullanmanız gerekirken `sass` uzantısında [Girintili Syntax \("Sass"\)](https://sass-lang.com/documentation/syntax#the-indented-syntax) kullanmanız gerekir.
 >
