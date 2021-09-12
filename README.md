@@ -1,6 +1,6 @@
 # Başlarken
 
-Next.js dokümantasyonuna hoşeldiniz!
+Next.js dokümantasyonuna hoş geldiniz!
 
 Next.js'te yeniyseniz [öğretici kurs](https://nextjs.org/learn/basics/create-nextjs-app)la başlamanızı tavsiye ederiz.
 
